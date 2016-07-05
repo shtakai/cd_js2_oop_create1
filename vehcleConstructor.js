@@ -7,56 +7,69 @@ function VehicleConstructor(name, number, wheels, passengers, speed) {
   this.wheels = wheels;
   this.passengers = passengers;
   this.speed = speed;
-  var distance_travelled = 0;
+  this._distance_travelled = 0;
 
-  this.makeNoise = function () {
-    console.log('make noise');
-    console.log(distance_travelled);
-    console.log(speed);
-  }
+  this.vin = Math.floor(Math.random()*1000) + 1;
 
-  var updateDistanceTravelled = function(){
-    distance_travelled += speed;
-  }
 
-  this.move = function(){
-    updateDistanceTravelled();
-    this.makeNoise();
-  }
-
-  this.checkMiles = function(){
-       console.log(distance_travelled);
-  }
 
 }
 
-var bike = new VehicleConstructor('motorcycle', 1234, 2, 2,100);
+VehicleConstructor.prototype._updateDistanceTravelled = function(){
+  this._distance_travelled += this.speed;
+}
+
+VehicleConstructor.prototype.makeNoise = function () {
+  console.log('make noise');
+}
+
+VehicleConstructor.prototype.move = function(){
+  this._updateDistanceTravelled();
+  return this;
+}
+
+VehicleConstructor.prototype.checkMiles = function(){
+  console.log(this._distance_travelled);
+  return this;
+}
+
+VehicleConstructor.prototype.vin = function(){
+   return this.vin;
+}
+
+var bike = new VehicleConstructor('motorcycle', 222,2,2,200);
+
 bike.makeNoise = function(){
   console.log('ring ring');
 }
 bike.makeNoise();
-bike.move();
-bike.move();
-bike.move();
+bike.move().move();
 bike.checkMiles();
 
-var sedan = new VehicleConstructor('TOYOTA',3333, 4, 5, 300);
-sedan.makeNoise=function(){
-   console.log('Honk Honk');
+bike.move().move();
+bike.checkMiles();
+bike.move().move();
+bike.checkMiles();
+var sedan = new VehicleConstructor('AE86 TOFU', 2992, 4,4, 120);
+sedan.makeNoise = function(){
+  console.log('Hong Hong');
 }
 sedan.makeNoise();
+bike.makeNoise();
 
-var bus = new VehicleConstructor ('HINO', 4444, 20, 40, 500);
-bus.pickUpPassengers = function(number){
-  this.passengers += number;
+var bus = new VehicleConstructor('Bus', 3399, 16, 40, 60);
+var bus2 = new VehicleConstructor('Bus', 3399, 16, 40, 60);
+bus.pickUpPassengers = function(number_of_passengers){
+   this.passengers += number_of_passengers;
 }
 bus.makeNoise();
 console.log(bus.passengers);
-console.log(bus)
-bus.move();
-bus.move();
-bus.move();
-bus.move();
-bus.checkMiles();
-console.log(bus)
-bus.checkMiles();
+bus.pickUpPassengers(10);
+console.log(bus.passengers);
+console.log(bike.passengers);
+
+console.log('vin--------');
+console.log(bike.vin);
+console.log(sedan.vin);
+console.log(bus.vin);
+console.log(bus2.vin);
