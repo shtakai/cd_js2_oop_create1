@@ -1,35 +1,35 @@
 function VehicleConstructor(name, number, wheels, passengers) {
-  var vehicle = {};
 
-  vehicle.name = name;
-  vehicle.number = number;
-  vehicle.wheels = wheels;
-  vehicle.passengers = passengers;
+  var self = this;
 
-  vehicle.makeNoise = function () {
+  this.name = name;
+  this.number = number;
+  this.wheels = wheels;
+  this.passengers = passengers;
+
+  this.makeNoise = function () {
     console.log('make noise');
   }
 
-  return vehicle;
 
 }
 
-var bike = VehicleConstructor('motorcycle', 1234, 2, 2);
+var bike = new VehicleConstructor('motorcycle', 1234, 2, 2);
 bike.makeNoise = function(){
   console.log('ring ring');
 }
 bike.makeNoise();
 
-var sedan = VehicleConstructor('TOYOTA',3333, 4, 5);
+var sedan = new VehicleConstructor('TOYOTA',3333, 4, 5);
 sedan.makeNoise=function(){
    console.log('Honk Honk');
 }
 sedan.makeNoise();
 
-var bus = VehicleConstructor('HINO', 4444, 20, 40);
-bus.passengerCounter = function () {
-  return this.passengers;
+var bus = new VehicleConstructor ('HINO', 4444, 20, 40);
+bus.pickUpPassengers = function(number){
+  this.passengers += number;
 }
 bus.makeNoise();
-console.log(bus.passengerCounter());
-console.log(bus);
+//console.log(bus.passengers);
+//console.log(bus);
